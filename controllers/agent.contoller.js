@@ -39,7 +39,7 @@ const updateAgent = async ({ body, params: { id } }, res) => {
   }).catch((e) => res.status(500).send(e.message));
   if (updated) {
     const updatedAgent = await Agent.findByPk(id);
-    return res.status(200).json({ updateAgent });
+    return res.status(200).json({ updatedAgent });
   }
   return res.status(404).send('Agent not found');
 };

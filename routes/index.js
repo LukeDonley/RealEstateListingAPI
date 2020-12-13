@@ -10,6 +10,8 @@ router.post('/listings', listingController.createListing);
 router.get('/listings', listingController.getListings);
 router.get('/listings/:mls_number', listingController.getListingByMlsNumber);
 router.put('/listings/:mls_number', listingController.updateListing);
+router.put('/listings/:mls_number/agent', listingController.addAgent);
+router.delete('/listings/:mls_number/agent', listingController.removeAgent);
 router.delete('/listings/:mls_number', listingController.deleteListing);
 
 // Agent Routes
