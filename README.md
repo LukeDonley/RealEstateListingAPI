@@ -18,7 +18,7 @@ To install the npm dependencies
 This project requires an instance of MySQL running on the default port: 3306, with root password 'password'
 You can use a local instance, or if you have Docker installed you can run:
 
-    docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=default -d mysql/mysql-server:latest
+    docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql/mysql-server:latest
 
 With the MySQL server running, run the following command to set up the database:
 
