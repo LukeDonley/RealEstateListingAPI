@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../server.js');
+const app = require('../app.js');
 
 describe('Agent API', () => {
   it('should show all agents', async () => {

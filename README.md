@@ -2,17 +2,37 @@
 
 This is a REST API for real estate listing data. It is build using a Node.js + Express Server, with a MySQL database.
 
+## Requirements
+
+- Node.js
+- MySQL
+
 ## Install
 
-    Commands to install
+To install the npm dependencies
+
+    npm install
 
 ## Run
 
-    Commands to run
+This project requires an instance of MySQL running on the default port: 3306, with root password 'password'
+You can use a local instance, or if you have Docker installed you can run:
+
+    docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=default -d mysql/mysql-server:latest
+
+With the MySQL server running, run the following command to set up the database:
+
+    npm run db:reset
+
+To start the server run:
+
+    npm run start
 
 ## Test
 
-    Commands to run tests
+There are tests for all the API endpoints. Run the following:
+
+    npm run test
 
 # API Documentation
 
@@ -72,6 +92,8 @@ Deletes an existing agent
 
 Creates new listing from the request body provided. Returns newly created listing.
 
+Will add associated agents. Add any agent ID to the agent_ids array, and they will be added.
+
     POST /api/listings
 
 Example Request Body:
@@ -85,6 +107,7 @@ Example Request Body:
   "state": "Minnesota",
   "postal_code": "55404",
   "asking_price": "300000.00",
+  "listing_date": "2020-12-13",
   "agent_ids": [ "1", "5" ]
 }
 ```
@@ -94,6 +117,17 @@ Example Request Body:
 Searches listings based on parameters passed through the query string. Returns array of resulting listings.
 
     GET /api/listings?city=Minneapolis
+
+Available search parameters:
+
+- mls_number
+- address_line_1
+- address_line_2
+- city
+- state
+- postal_code
+- asking_price
+- listing_date
 
 ## Get Listing By MLS Number
 
@@ -107,6 +141,8 @@ Updates and existing listing with the request body provided.
 
     PUT /api/listings/
 
+If adding or removing agents from the listing, use the separate Add/Remove Agent endpoints
+
 Example Request Body:
 
 ```
@@ -118,6 +154,34 @@ Example Request Body:
   "state": "Minnesota",
   "postal_code": "55404",
   "asking_price": "240000.00",
-  "agent_ids": [ "1", "5" ]
+  "listing_date": "020-12-13"
+}
+```
+
+## Add Agent
+
+Adds a single listing agent to a listing
+
+    PUT /api/listings/{mls_number}/agents
+
+Example Request Body:
+
+```
+{
+    "agent_id": "2"
+}
+```
+
+## Remove Agent
+
+Removes a single listing agent from a listing
+
+    DELETE /api/listings/{mls_number}/agents
+
+Example Request Body:
+
+```
+{
+    "agent_id": "2"
 }
 ```

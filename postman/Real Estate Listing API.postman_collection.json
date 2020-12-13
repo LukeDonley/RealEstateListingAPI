@@ -1,0 +1,316 @@
+{
+	"info": {
+		"_postman_id": "b7e56581-1459-4fbc-9b07-9939a7068b0c",
+		"name": "Real Estate Listing API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Listings",
+			"item": [
+				{
+					"name": "Create Listing",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mls_number\": \"1234567\",\n    \"address_line_1\": \"1234 Test Ave\",\n    \"address_line_2\": \"Unit 101\",\n    \"city\": \"Minnapolis\",\n    \"state\": \"Minnesota\",\n    \"postal_code\": \"55404\",\n    \"asking_price\": \"300000.00\",\n    \"listing_date\": \"2020-12-12\",\n    \"agent_ids\": [ \"6\", \"5\" ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/listings",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"listings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Listing By MLS Number",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/listings/1234567",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"listings",
+								"1234567"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Agent To Listing",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"agent_id\": \"2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/listings/1234567/agent",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"listings",
+								"1234567",
+								"agent"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Agent From Listing",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"agent_id\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/listings/1234567/agent",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"listings",
+								"1234567",
+								"agent"
+							]
+						},
+						"description": "Provide JSON object with agent_id:\n\n{\n    \"agent_id\": \"1\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Listings",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:3000/api/listings?city=minneapolis",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"listings"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "minneapolis"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Listing",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"mls_number\": \"123456\",\n    \"address_line_1\": \"12345 test street\",\n    \"address_line_2\": \"Unit 101\",\n    \"state\": \"Minnesota\",\n    \"postal_code\": \"55404\",\n    \"asking_price\": \"300000.00\",\n    \"listing_date\": \"2020-12-12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/listings/1234567",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"listings",
+								"1234567"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Listing By MLS",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/listings/1234567",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"listings",
+								"1234567"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "API Actions For Listings",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Agents",
+			"item": [
+				{
+					"name": "Create Agent",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"Test\",\n    \"last_name\": \"Agent2\",\n    \"email\": \"test@agent.com\",\n    \"phone\": \"123-456-7890\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/api/agents",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"agents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Agent By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/agents/5",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"agents",
+								"5"
+							]
+						},
+						"description": "Get an agent by ID passed, includes all listings associated to the agent."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Agents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/agents",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"agents"
+							]
+						},
+						"description": "Get list of all agents"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Agent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "Updates the agent with the matching ID, using JSON data from the body:\n\n{\n    \"first_name\": \"\",\n    \"last_name\": \"\",\n    \"email\": \"\",\n    \"phone\": \"\"\n}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Agent",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:3000/api/agents/1",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"agents",
+								"1"
+							]
+						},
+						"description": "Deleted agent with the matching ID"
+					},
+					"response": []
+				}
+			],
+			"description": "API Actions For Agents",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
