@@ -71,6 +71,22 @@ describe('Listing API', () => {
     expect(res.body).toHaveProperty('listing');
   });
 
+  it('should remove an agent from the listing', async () => {
+    const res = await request(app)
+      .delete('/api/listings/1234567/agent')
+      .send({ agent_id: 2 });
+    expect(res.statusCode).toEqual(204);
+    expect(res.body).toEqual({});
+  });
+
+  it('should add an agent to the listing', async () => {
+    const res = await request(app)
+      .delete('/api/listings/1234567/agent')
+      .send({ agent_id: 2 });
+    expect(res.statusCode).toEqual(204);
+    expect(res.body).toEqual({});
+  });
+
   it('should update an listing', async () => {
     const res = await request(app).put('/api/listings/1111111').send({
       city: 'St. Paul'

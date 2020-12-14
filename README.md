@@ -18,9 +18,11 @@ To install the npm dependencies
 This project requires an instance of MySQL running on the default port: 3306, with root password 'password'
 You can use a local instance, or if you have Docker installed you can run:
 
-    docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -d mysql/mysql-server:latest
+    docker run --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password -e MYSQL_ROOT_HOST=% -d mysql/mysql-server:latest
 
-With the MySQL server running, run the following command to set up the database:
+If needed, you can change the MySQL configuration in config/config.json
+
+With the MySQL server live, run the following command to set up the database:
 
     npm run db:reset
 
@@ -28,13 +30,26 @@ To start the server run:
 
     npm run start
 
+There is a Postman collection in the "postman" directory, which can be imported into the Postman software. This collection contains pre-configured requests for every endpoint for easy testing.
+
 ## Test
 
 There are tests for all the API endpoints. Run the following:
 
     npm run test
 
-# API Documentation
+# **API Documentation**
+
+Documentation for each data model and endpoint
+
+# Agent
+
+This represents a real estate listing agent. The available fields for the agent are:
+
+- **first_name**: required
+- **last_name**: required
+- **email**: required, unique
+- **phone**
 
 ## Create Agent
 
@@ -69,6 +84,8 @@ Returns agent with the ID provided, if it exists
 
 Updates an existing Agent with provided request body
 
+If first_name or last_name are passed in, they cannot be empty. Email cannot be the same as another existing agent.
+
     PUT /api/agents/{id}
 
 Example Request Body:
@@ -88,6 +105,19 @@ Deletes an existing agent
 
     DELETE /api/agents/{id}
 
+# Listing
+
+This represents a real estate listing. The available fields for a listing are:
+
+- **mls_number**: required, unique
+- **address_line_1**
+- **address_line_2**
+- **city**
+- **state**
+- **postal_code**
+- **asking_price**
+- **listing_date**: date, format: 'YYYY-MM-DD'
+
 ## Create Listing
 
 Creates new listing from the request body provided. Returns newly created listing.
@@ -103,7 +133,7 @@ Example Request Body:
   "mls_number": "1234567",
   "address_line_1": "1234 Test Ave",
   "address_line_2": "Unit 101",
-  "city": "Minnapolis",
+  "city": "Minneapolis",
   "state": "Minnesota",
   "postal_code": "55404",
   "asking_price": "300000.00",
@@ -137,32 +167,29 @@ Returns listing for a particular MLS number
 
 ## Update Listing
 
-Updates and existing listing with the request body provided.
+Updates an existing listing with the request body provided.
 
-    PUT /api/listings/
+    PUT /api/listings/{mls_number}
 
-If adding or removing agents from the listing, use the separate Add/Remove Agent endpoints
+If adding or removing agents from the listing, use the separate Add/Remove Agent endpoints below.
 
 Example Request Body:
 
 ```
 {
-  "mls_number": "1234567",
-  "address_line_1": "1234 Test Ave",
-  "address_line_2": "Unit 101",
-  "city": "Minnapolis",
-  "state": "Minnesota",
-  "postal_code": "55404",
-  "asking_price": "240000.00",
+  "address_line_1": "555 4th St",
+  "city": "St. Paul",
+  "postal_code": "55116",
+  "asking_price": "270000.00",
   "listing_date": "020-12-13"
 }
 ```
 
 ## Add Agent
 
-Adds a single listing agent to a listing
+Adds a single listing agent to a listing. ID of agent must be provided in the body.
 
-    PUT /api/listings/{mls_number}/agents
+    PUT /api/listings/{mls_number}/agent
 
 Example Request Body:
 
@@ -174,9 +201,9 @@ Example Request Body:
 
 ## Remove Agent
 
-Removes a single listing agent from a listing
+Removes a single listing agent from a listing. ID of agent must be provided in the body.
 
-    DELETE /api/listings/{mls_number}/agents
+    DELETE /api/listings/{mls_number}/agent
 
 Example Request Body:
 

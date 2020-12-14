@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Listing.init(
     {
-      mls_number: DataTypes.STRING,
+      mls_number: {
+        type: DataTypes.STRING,
+        unique: true
+      },
       address_line_1: DataTypes.STRING,
       address_line_2: DataTypes.STRING,
       city: DataTypes.STRING,

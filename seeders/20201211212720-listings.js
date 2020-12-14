@@ -7,7 +7,7 @@ module.exports = {
         mls_number: '1111111',
         address_line_1: '1111 Test St',
         address_line_2: '',
-        city: 'Minnapolis',
+        city: 'Minneapolis',
         state: 'Minnesota',
         postal_code: '55407',
         asking_price: '220000.00',

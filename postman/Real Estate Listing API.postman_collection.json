@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"mls_number\": \"1234567\",\n    \"address_line_1\": \"1234 Test Ave\",\n    \"address_line_2\": \"Unit 101\",\n    \"city\": \"Minnapolis\",\n    \"state\": \"Minnesota\",\n    \"postal_code\": \"55404\",\n    \"asking_price\": \"300000.00\",\n    \"listing_date\": \"2020-12-12\",\n    \"agent_ids\": [ \"6\", \"5\" ]\n}",
+							"raw": "{\n    \"mls_number\": \"1111111\",\n    \"address_line_1\": \"1234 Test Ave\",\n    \"address_line_2\": \"Unit 101\",\n    \"city\": \"Minneapolis\",\n    \"state\": \"Minnesota\",\n    \"postal_code\": \"55404\",\n    \"asking_price\": \"300000.00\",\n    \"listing_date\": \"2020-12-12\",\n    \"agent_ids\": [ \"1\", \"3\" ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -42,7 +42,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/listings/1234567",
+							"raw": "localhost:3000/api/listings/1111111",
 							"host": [
 								"localhost"
 							],
@@ -50,7 +50,7 @@
 							"path": [
 								"api",
 								"listings",
-								"1234567"
+								"1111111"
 							]
 						}
 					},
@@ -63,7 +63,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"agent_id\": \"2\"\n}",
+							"raw": "{\n    \"agent_id\": \"1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,7 +71,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/listings/1234567/agent",
+							"raw": "localhost:3000/api/listings/1111111/agent",
 							"host": [
 								"localhost"
 							],
@@ -79,7 +79,7 @@
 							"path": [
 								"api",
 								"listings",
-								"1234567",
+								"1111111",
 								"agent"
 							]
 						}
@@ -101,7 +101,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/listings/1234567/agent",
+							"raw": "localhost:3000/api/listings/1111111/agent",
 							"host": [
 								"localhost"
 							],
@@ -109,7 +109,7 @@
 							"path": [
 								"api",
 								"listings",
-								"1234567",
+								"1111111",
 								"agent"
 							]
 						},
@@ -156,7 +156,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"mls_number\": \"123456\",\n    \"address_line_1\": \"12345 test street\",\n    \"address_line_2\": \"Unit 101\",\n    \"state\": \"Minnesota\",\n    \"postal_code\": \"55404\",\n    \"asking_price\": \"300000.00\",\n    \"listing_date\": \"2020-12-12\"\n}",
+							"raw": "{\n    \"mls_number\": \"123456\",\n    \"address_line_1\": \"12345 test street\",\n    \"address_line_2\": \"Unit 102\",\n    \"state\": \"Minnesota\",\n    \"postal_code\": \"55404\",\n    \"asking_price\": \"300000.00\",\n    \"listing_date\": \"2020-12-12\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -164,7 +164,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:3000/api/listings/1234567",
+							"raw": "localhost:3000/api/listings/1111111",
 							"host": [
 								"localhost"
 							],
@@ -172,7 +172,7 @@
 							"path": [
 								"api",
 								"listings",
-								"1234567"
+								"1111111"
 							]
 						}
 					},
@@ -184,7 +184,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/listings/1234567",
+							"raw": "localhost:3000/api/listings/1111111",
 							"host": [
 								"localhost"
 							],
@@ -192,7 +192,7 @@
 							"path": [
 								"api",
 								"listings",
-								"1234567"
+								"1111111"
 							]
 						}
 					},
@@ -212,7 +212,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"first_name\": \"Test\",\n    \"last_name\": \"Agent2\",\n    \"email\": \"test@agent.com\",\n    \"phone\": \"123-456-7890\"\n}",
+							"raw": "{\n    \"first_name\": \"Test\",\n    \"last_name\": \"Agent\",\n    \"email\": \"test@gmail.com\",\n    \"phone\": \"123-456-7890\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -239,7 +239,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/agents/5",
+							"raw": "localhost:3000/api/agents/3",
 							"host": [
 								"localhost"
 							],
@@ -247,7 +247,7 @@
 							"path": [
 								"api",
 								"agents",
-								"5"
+								"3"
 							]
 						},
 						"description": "Get an agent by ID passed, includes all listings associated to the agent."
@@ -277,10 +277,28 @@
 				{
 					"name": "Update Agent",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"first_name\": \"\",\n    \"last_name\": \"goodbye\",\n    \"email\": \"agent5@test.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": ""
+							"raw": "localhost:3000/api/agents/2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"agents",
+								"2"
+							]
 						},
 						"description": "Updates the agent with the matching ID, using JSON data from the body:\n\n{\n    \"first_name\": \"\",\n    \"last_name\": \"\",\n    \"email\": \"\",\n    \"phone\": \"\"\n}"
 					},
@@ -292,7 +310,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:3000/api/agents/1",
+							"raw": "localhost:3000/api/agents/4",
 							"host": [
 								"localhost"
 							],
@@ -300,7 +318,7 @@
 							"path": [
 								"api",
 								"agents",
-								"1"
+								"4"
 							]
 						},
 						"description": "Deleted agent with the matching ID"

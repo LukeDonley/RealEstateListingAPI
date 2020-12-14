@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       mls_number: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       address_line_1: {
         type: Sequelize.STRING

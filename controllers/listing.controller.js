@@ -1,6 +1,16 @@
 const { Listing, Agent } = require('../models');
 
 const createListing = async ({ body }, res) => {
+  const existingListing = await Listing.findOne({
+    where: { mls_number: body.mls_number }
+  }).catch((e) => res.status(500).json({ error: e.message }));
+
+  // Validate no listings exist with mls_number
+  if (existingListing)
+    return res
+      .status(400)
+      .send(`Listing with MLS Number ${body.mls_number} already exists`);
+
   const listing = await Listing.create({
     mls_number: body.mls_number,
     address_line_1: body.address_line_1,
@@ -8,7 +18,8 @@ const createListing = async ({ body }, res) => {
     city: body.city,
     state: body.state,
     postal_code: body.postal_code,
-    asking_price: body.asking_price
+    asking_price: body.asking_price,
+    listing_date: body.listing_date
   }).catch((e) => res.status(500).json({ error: error.message }));
 
   if (body.agent_ids) {
@@ -37,13 +48,11 @@ const addAgent = async ({ body, params: { mls_number } }, res) => {
 
   if (!agent) res.status(404).send('Agent Not Found');
 
-  return res
-    .status(200)
-    .send(
-      await listing
-        .addAgent(agent)
-        .catch((e) => res.status(500).json({ error: e.message }))
-    );
+  await listing
+    .addAgent(agent)
+    .catch((e) => res.status(500).json({ error: e.message }));
+
+  return res.status(200).send({ listing });
 };
 
 const removeAgent = async ({ body, params: { mls_number } }, res) => {
@@ -51,21 +60,18 @@ const removeAgent = async ({ body, params: { mls_number } }, res) => {
     where: { mls_number }
   }).catch((e) => res.status(500).json({ error: error.message }));
 
-  if (!listing) res.status(404).send('Listing Not Found');
+  if (!listing) return res.status(404).send('Listing Not Found');
 
   const agent = await Agent.findByPk(body.agent_id).catch((e) =>
     res.status(500).json({ error: error.message })
   );
 
-  if (!agent) res.status(404).send('Agent Not Found');
+  if (!agent) return res.status(404).send('Agent Not Found');
 
-  return res
-    .status(204)
-    .send(
-      await listing
-        .removeAgent(agent)
-        .catch((e) => res.status(500).send({ error: e.message }))
-    );
+  await listing
+    .removeAgent(agent)
+    .catch((e) => res.status(500).send({ error: e.message }));
+  return res.status(204).json({ listing });
 };
 
 const getListings = async ({ query }, res) => {
@@ -89,9 +95,21 @@ const getListingByMlsNumber = async ({ params: { mls_number } }, res) => {
 };
 
 const updateListing = async ({ body, params: { mls_number } }, res) => {
-  const [updated] = await Listing.update(body, {
-    where: { mls_number }
-  }).catch((e) => res.status(500).json({ error: e.message }));
+  const [updated] = await Listing.update(
+    {
+      // Do not update mls_number
+      address_line_1: body.address_line_1,
+      address_line_2: body.address_line_2,
+      city: body.city,
+      state: body.state,
+      postal_code: body.postal_code,
+      asking_price: body.asking_price,
+      listing_date: body.listing_date
+    },
+    {
+      where: { mls_number }
+    }
+  ).catch((e) => res.status(500).json({ error: e.message }));
 
   if (!updated) return res.status(404).send('Listing not found');
 
